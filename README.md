@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Modern Portfolio
 
-## Getting Started
+A stunning, high-performance portfolio website built with Next.js, featuring modern animations, glassmorphism design, and seamless Firebase deployment.
 
-First, run the development server:
+## ✨ Features
+
+- **Modern Design**: Dark theme with glassmorphism effects and custom brand colors
+- **Smooth Animations**: Powered by Framer Motion for fluid transitions
+- **3D Interactive Elements**: 
+  - 3D Tilt Trading Cards for hobbies
+  - Roller coaster wave animations
+  - Holographic effects on hover
+- **Responsive Layout**: Optimized for all devices
+- **Auto-Deploy**: GitHub Actions workflow for continuous deployment to Firebase
+- **Optimized Performance**: Static export for blazing-fast load times
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) with App Router
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Deployment**: Firebase Hosting via GitHub Actions
+- **Language**: TypeScript
+
+## 📦 Installation
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site locally.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project uses GitHub Actions for automatic deployment to Firebase Hosting.
 
-## Learn More
+### Prerequisites
+1. Firebase project with Hosting enabled
+2. Firebase Service Account JSON
+3. GitHub repository secrets configured
 
-To learn more about Next.js, take a look at the following resources:
+### Setup
+1. Add `FIREBASE_SERVICE_ACCOUNT` secret to GitHub repository
+2. Update `projectId` in `.github/workflows/firebase-deploy.yml`
+3. Push to `main` branch - deployment happens automatically!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+See [deployment-guide.md](deployment-guide.md) for detailed instructions.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📂 Project Structure
 
-## Deploy on Vercel
+```
+app/
+├── app/
+│   ├── components/     # React components
+│   ├── globals.css     # Global styles
+│   └── page.tsx        # Main page
+├── public/             # Static assets
+├── .github/
+│   └── workflows/      # GitHub Actions
+└── firebase.json       # Firebase config
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎨 Sections
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Hero**: Dynamic introduction with typing effect
+- **About**: Professional summary
+- **Skills**: Tech stack showcase
+- **Experience**: Work history
+- **Education**: Academic background
+- **Volunteer**: Community involvement
+- **Certificates**: Tiered certification display
+- **Hobbies**: Interactive 3D cards
+- **Contact**: Formspree-powered contact form
+
+## 📝 License
+
+This project is open source and available under the MIT License.
+
+## 🔗 Links
+
+- **Live Site**: [Portfolio](https://carbon-modem-300014.web.app)
+- **GitHub**: [saranmahadev/portfolio](https://github.com/saranmahadev/portfolio)
+
+---
+
+Built with ❤️ by Saran Mahadev
