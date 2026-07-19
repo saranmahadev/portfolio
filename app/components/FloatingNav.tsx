@@ -10,18 +10,10 @@ export default function FloatingNav() {
 
     useEffect(() => {
         const handleInteraction = (e: MouseEvent | null) => {
-            // Show if:
-            // 1. Mouse is within top 100px (e.clientY < 100)
-            // 2. OR User is at the very top of the page (window.scrollY < 50)
-
+            const isTouch = window.matchMedia("(pointer: coarse)").matches;
             const isNearTop = e ? e.clientY < 100 : false;
             const isAtTop = window.scrollY < 50;
-
-            if (isNearTop || isAtTop) {
-                setIsVisible(true);
-            } else {
-                setIsVisible(false);
-            }
+            setIsVisible(isTouch || isNearTop || isAtTop || isMobileMenuOpen);
         };
 
         const onMouseMove = (e: MouseEvent) => handleInteraction(e);
@@ -37,7 +29,7 @@ export default function FloatingNav() {
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("scroll", onScroll);
         };
-    }, []);
+    }, [isMobileMenuOpen]);
 
     const navItems = [
         { name: "Home", link: "#home" },
@@ -47,11 +39,6 @@ export default function FloatingNav() {
         { name: "Education", link: "#education" },
         { name: "Contact", link: "#contact" },
     ];
-
-    // Make sure to add this import at the top if not present
-
-    // ... (keep useEffect for isVisible logic, but maybe auto-close mobile menu on scroll?)
-    // Actually, let's keep the existing useEffect and just update the UI.
 
     return (
         <div className="fixed top-0 left-0 w-full h-auto z-50 pointer-events-none flex justify-end pt-6 pr-6 md:pr-12">
@@ -65,7 +52,7 @@ export default function FloatingNav() {
                         className="pointer-events-auto"
                     >
                         {/* Desktop Nav */}
-                        <nav className="hidden md:flex items-center gap-2 px-3 py-3 rounded-full border border-white/20 bg-black/20 backdrop-blur-xl shadow-lg shadow-brand-primary/10">
+                        <nav aria-label="Primary navigation" className="hidden md:flex items-center gap-2 border border-white/15 bg-black/55 px-3 py-3 backdrop-blur-xl shadow-lg shadow-brand-primary/10 [clip-path:polygon(12px_0,100%_0,100%_calc(100%-12px),calc(100%-12px)_100%,0_100%,0_12px)]">
                             {navItems.map((item) => (
                                 <a
                                     key={item.name}
@@ -81,8 +68,11 @@ export default function FloatingNav() {
                         {/* Mobile Nav */}
                         <div className="md:hidden flex flex-col items-end gap-2">
                             <button
+                                type="button"
+                                aria-label={isMobileMenuOpen ? "Close navigation" : "Open navigation"}
+                                aria-expanded={isMobileMenuOpen}
                                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                                className="p-3 rounded-full border border-white/20 bg-black/20 backdrop-blur-xl text-white shadow-lg hover:bg-white/10 transition-all"
+                                className="border border-white/20 bg-black/70 p-3 text-white shadow-lg backdrop-blur-xl transition-all hover:border-[#FD9000]/50 hover:text-[#FD9000] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FD9000] [clip-path:polygon(8px_0,100%_0,100%_calc(100%-8px),calc(100%-8px)_100%,0_100%,0_8px)]"
                             >
                                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                             </button>
@@ -90,10 +80,11 @@ export default function FloatingNav() {
                             <AnimatePresence>
                                 {isMobileMenuOpen && (
                                     <motion.nav
+                                        aria-label="Mobile navigation"
                                         initial={{ opacity: 0, scale: 0.9, y: -20 }}
                                         animate={{ opacity: 1, scale: 1, y: 0 }}
                                         exit={{ opacity: 0, scale: 0.9, y: -20 }}
-                                        className="flex flex-col gap-2 p-4 rounded-2xl border border-white/20 bg-black/80 backdrop-blur-xl shadow-xl min-w-[200px]"
+                                        className="flex min-w-[220px] flex-col gap-1 border border-white/15 bg-black/90 p-3 shadow-xl backdrop-blur-xl [clip-path:polygon(12px_0,100%_0,100%_calc(100%-12px),calc(100%-12px)_100%,0_100%,0_12px)]"
                                     >
                                         {navItems.map((item) => (
                                             <a

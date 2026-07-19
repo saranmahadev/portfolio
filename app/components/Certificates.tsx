@@ -1,167 +1,125 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ExternalLink, X } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
-import { X } from "lucide-react";
+import { useEffect, useState } from "react";
 
-// Data Structure
-const primaryCerts = [
+type Certificate = { src: string; label: string };
+
+const primaryCerts: Certificate[] = [
     { src: "/assets/images/certs/Primary/AWS Cloud Practitioner.png", label: "AWS Certified Cloud Practitioner" },
-    { src: "/assets/images/certs/Primary/1.webp", label: "DeepLearning.AI" },
-    { src: "/assets/images/certs/Primary/2.webp", label: "Networking" },
-    { src: "/assets/images/certs/Primary/3.webp", label: "Linux Essentials" },
-    { src: "/assets/images/certs/Primary/5.webp", label: "PCAP Programming" },
-    { src: "/assets/images/certs/Primary/6.webp", label: "Cybersecurity" },
-    { src: "/assets/images/certs/Primary/8.webp", label: "Oracle Cloud" },
-    { src: "/assets/images/certs/Primary/22.webp", label: "DevOps" },
-    { src: "/assets/images/certs/Primary/24.webp", label: "Postman API" },
+    { src: "/assets/images/certs/Primary/1.webp", label: "DeepLearning.AI certificate" },
+    { src: "/assets/images/certs/Primary/2.webp", label: "Networking certificate" },
+    { src: "/assets/images/certs/Primary/3.webp", label: "Linux Essentials certificate" },
+    { src: "/assets/images/certs/Primary/5.webp", label: "PCAP Programming certificate" },
+    { src: "/assets/images/certs/Primary/6.webp", label: "Cybersecurity certificate" },
+    { src: "/assets/images/certs/Primary/8.webp", label: "Oracle Cloud certificate" },
+    { src: "/assets/images/certs/Primary/22.webp", label: "DevOps certificate" },
+    { src: "/assets/images/certs/Primary/24.webp", label: "Postman API certificate" },
 ];
 
-const secondaryCerts = [
-    "/assets/images/certs/Secondary/9.webp",
-    "/assets/images/certs/Secondary/10.webp",
-    "/assets/images/certs/Secondary/12.webp",
-    "/assets/images/certs/Secondary/14.webp",
-    "/assets/images/certs/Secondary/20.webp",
-];
+const secondaryCerts: Certificate[] = [9, 10, 12, 14, 20].map((id, index) => ({ src: `/assets/images/certs/Secondary/${id}.webp`, label: `Professional certificate ${index + 1}` }));
+const udemyCerts: Certificate[] = [7, 16, 17, 21].map((id, index) => ({ src: `/assets/images/certs/Udemy/${id}.webp`, label: `Udemy course certificate ${index + 1}` }));
 
-const udemyCerts = [
-    "/assets/images/certs/Udemy/7.webp",
-    "/assets/images/certs/Udemy/16.webp",
-    "/assets/images/certs/Udemy/17.webp",
-    "/assets/images/certs/Udemy/21.webp",
-];
+function TierLabel({ index }: { index: string }) {
+    return (
+        <div className="mb-7 flex items-center gap-4 font-mono text-[10px] tracking-[0.22em] text-white/40 md:text-xs">
+            <span className="text-[#FD9000]">{"//"} TIER {index}</span>
+            <span className="h-px flex-1 bg-gradient-to-r from-[#FD9000]/40 to-transparent" />
+        </div>
+    );
+}
+
+function CertificateCard({ cert, index, compact = false, onSelect }: { cert: Certificate; index: number; compact?: boolean; onSelect: () => void }) {
+    const reduceMotion = useReducedMotion();
+    return (
+        <motion.button
+            type="button"
+            aria-label={`Open ${cert.label}`}
+            initial={reduceMotion ? false : { opacity: 0, y: 34, rotate: index % 2 ? 1.5 : -1.5 }}
+            whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ type: "spring", damping: 22, stiffness: 180, delay: reduceMotion ? 0 : Math.min(index * 0.055, 0.35) }}
+            onClick={onSelect}
+            className={`certificate-card group relative w-full overflow-hidden border border-white/10 bg-[#090909] text-left [clip-path:polygon(14px_0,100%_0,100%_calc(100%-14px),calc(100%-14px)_100%,0_100%,0_14px)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FD9000] ${compact ? "aspect-[4/3]" : "aspect-[16/11]"}`}
+        >
+            <div className="absolute inset-2 overflow-hidden bg-black/60 md:inset-3">
+                <Image src={cert.src} alt={cert.label} fill sizes={compact ? "(max-width: 768px) 50vw, 240px" : "(max-width: 768px) 100vw, 420px"} className="object-contain p-1 transition duration-500 group-hover:scale-[1.035]" />
+            </div>
+            <div className="certificate-shine" aria-hidden="true" />
+            <span className="corner-bracket left-2 top-2 border-l border-t" aria-hidden="true" />
+            <span className="corner-bracket bottom-2 right-2 border-b border-r" aria-hidden="true" />
+            <span className="absolute bottom-3 right-3 z-10 grid h-8 w-8 place-items-center border border-white/15 bg-black/70 text-white/50 opacity-0 transition group-hover:border-[#FD9000]/50 group-hover:text-[#FD9000] group-hover:opacity-100"><ExternalLink size={14} /></span>
+        </motion.button>
+    );
+}
 
 export default function Certificates() {
-    const [selectedCert, setSelectedCert] = useState<string | null>(null);
+    const [selectedCert, setSelectedCert] = useState<Certificate | null>(null);
+    const reduceMotion = useReducedMotion();
+
+    useEffect(() => {
+        if (!selectedCert) return;
+        const closeOnEscape = (event: KeyboardEvent) => event.key === "Escape" && setSelectedCert(null);
+        window.addEventListener("keydown", closeOnEscape);
+        document.body.style.overflow = "hidden";
+        return () => {
+            window.removeEventListener("keydown", closeOnEscape);
+            document.body.style.overflow = "";
+        };
+    }, [selectedCert]);
 
     return (
-        <section id="certificates" className="min-h-screen py-24 relative overflow-hidden bg-[#050505]">
-
-            {/* Elegant Background */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl opacity-[0.03] pointer-events-none">
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-            </div>
-
-            <div className="container mx-auto px-6 relative z-10 max-w-7xl">
-                {/* Header */}
-                <div className="text-center mb-24" data-aos="fade-up">
-                    <h6 className="text-[#FD9000] font-bold tracking-widest uppercase mb-2">VALIDATED EXPERTISE</h6>
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">CERTIFICATIONS</h1>
-                    <div className="w-20 h-1 bg-[#FD9000] mx-auto rounded-full"></div>
+        <section id="certificates" className="section-shell min-h-screen overflow-hidden bg-[#050505] py-24">
+            <div className="section-grid" aria-hidden="true" />
+            <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8">
+                <div className="section-heading mb-16 text-center md:mb-20">
+                    <motion.p initial={reduceMotion ? false : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-kicker">{"//"} VALIDATED EXPERTISE</motion.p>
+                    <motion.h2 initial={reduceMotion ? false : { opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-title">PROOF OF <span>PRACTICE</span></motion.h2>
+                    <p className="section-readout">18 CREDENTIALS · CLOUD · AI · ENGINEERING</p>
                 </div>
 
-                {/* --- PRIMARY TIER (Large Grid) --- */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-                    {primaryCerts.map((cert, index) => (
-                        <motion.div
-                            key={`prim-${index}`}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            viewport={{ once: true }}
-                            className="group relative aspect-[16/11] bg-[#0a0a0a] border border-white/10 rounded-2xl overflow-hidden hover:border-[#FD9000]/50 transition-colors duration-300 cursor-pointer shadow-lg hover:shadow-[0_0_30px_rgba(253,144,0,0.1)]"
-                            onClick={() => setSelectedCert(cert.src)}
-                        >
-                            {/* Image Container - Padded & Maintained */}
-                            <div className="absolute inset-2 md:inset-4 flex items-center justify-center bg-[#0a0a0a] rounded-xl overflow-hidden">
-                                <Image
-                                    src={cert.src}
-                                    alt={cert.label}
-                                    fill
-                                    className="object-contain hover:scale-105 transition-transform duration-500"
-                                    unoptimized
-                                />
-                            </div>
-                        </motion.div>
-                    ))}
+                <TierLabel index="1" />
+                <div className="mb-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {primaryCerts.map((cert, index) => <CertificateCard key={cert.src} cert={cert} index={index} onSelect={() => setSelectedCert(cert)} />)}
                 </div>
 
-
-                {/* --- SECONDARY TIER (Medium Grid) --- */}
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-20">
-                    {secondaryCerts.map((src, index) => (
-                        <motion.div
-                            key={`sec-${index}`}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.4, delay: index * 0.05 }}
-                            viewport={{ once: true }}
-                            className="group relative aspect-[4/3] bg-[#0a0a0a] border border-white/10 rounded-xl overflow-hidden hover:border-white/30 transition-all cursor-pointer"
-                            onClick={() => setSelectedCert(src)}
-                        >
-                            <div className="absolute inset-2 flex items-center justify-center">
-                                <Image
-                                    src={src}
-                                    alt="Skill Cert"
-                                    fill
-                                    className="object-contain opacity-80 group-hover:opacity-100 transition-opacity"
-                                    unoptimized
-                                />
-                            </div>
-                        </motion.div>
-                    ))}
+                <TierLabel index="2" />
+                <div className="mb-16 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+                    {secondaryCerts.map((cert, index) => <CertificateCard key={cert.src} cert={cert} index={index} compact onSelect={() => setSelectedCert(cert)} />)}
                 </div>
 
-
-                {/* --- UDEMY TIER (Larger & No Crop) --- */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 justify-center max-w-5xl mx-auto opacity-80 hover:opacity-100 transition-opacity duration-500 transform translate-y-4">
-                    {udemyCerts.map((src, index) => (
-                        <motion.div
-                            key={`udemy-${index}`}
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            transition={{ duration: 0.5 }}
-                            className="relative aspect-[4/3] bg-[#0a0a0a] rounded-xl border border-white/10 p-2 cursor-pointer hover:scale-105 transition-transform hover:border-[#FD9000]/30 shadow-md"
-                            onClick={() => setSelectedCert(src)}
-                        >
-                            <div className="relative w-full h-full rounded bg-black/50">
-                                <Image
-                                    src={src}
-                                    alt="Udemy"
-                                    fill
-                                    className="object-contain p-1" // Ensure full visibility
-                                    unoptimized
-                                />
-                            </div>
-                        </motion.div>
-                    ))}
+                <TierLabel index="3" />
+                <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 md:grid-cols-4">
+                    {udemyCerts.map((cert, index) => <CertificateCard key={cert.src} cert={cert} index={index} compact onSelect={() => setSelectedCert(cert)} />)}
                 </div>
             </div>
 
-            {/* --- ANIMATED MODAL --- */}
             <AnimatePresence>
                 {selectedCert && (
                     <motion.div
-                        initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-                        animate={{ opacity: 1, backdropFilter: "blur(10px)" }}
-                        exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-                        className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 md:p-10"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label={selectedCert.label}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[120] flex items-center justify-center bg-black/90 p-4 backdrop-blur-xl md:p-10"
                         onClick={() => setSelectedCert(null)}
                     >
-                        {/* Close Button */}
-                        <button className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50 p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md">
-                            <X size={28} />
-                        </button>
-
+                        <button type="button" aria-label="Close certificate" autoFocus onClick={() => setSelectedCert(null)} className="absolute right-4 top-4 z-20 grid h-12 w-12 place-items-center border border-white/15 bg-black/60 text-white/70 transition hover:border-[#FD9000]/60 hover:text-[#FD9000] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FD9000] md:right-8 md:top-8"><X /></button>
                         <motion.div
-                            initial={{ scale: 0.8, opacity: 0, y: 50 }}
-                            animate={{ scale: 1, opacity: 1, y: 0 }}
-                            exit={{ scale: 0.8, opacity: 0, y: 50 }}
-                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                            className="relative w-full h-full max-w-6xl max-h-[85vh] flex items-center justify-center"
-                            onClick={(e) => e.stopPropagation()}
+                            layoutId={reduceMotion ? undefined : `certificate-${selectedCert.src}`}
+                            initial={reduceMotion ? false : { scale: 0.88, y: 35 }}
+                            animate={{ scale: 1, y: 0 }}
+                            exit={reduceMotion ? undefined : { scale: 0.9, y: 20 }}
+                            className="relative h-[78vh] w-full max-w-6xl"
+                            onClick={(event) => event.stopPropagation()}
                         >
-                            <Image
-                                src={selectedCert}
-                                alt="Full Certificate"
-                                fill
-                                className="object-contain drop-shadow-[0_0_50px_rgba(0,0,0,0.8)]"
-                                unoptimized
-                                priority
-                            />
+                            <Image src={selectedCert.src} alt={selectedCert.label} fill sizes="95vw" className="object-contain drop-shadow-[0_30px_80px_rgba(0,0,0,0.8)]" priority />
                         </motion.div>
+                        <p className="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.2em] text-white/40">ESC TO CLOSE</p>
                     </motion.div>
                 )}
             </AnimatePresence>

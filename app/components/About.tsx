@@ -1,106 +1,149 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { animate, motion, useInView } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
-export default function About() {
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2
-            }
-        }
-    };
+const STATS = [
+    { value: 3, suffix: "+", label: "YEARS IN R&D" },
+    { value: 6, suffix: "+", label: "AI PROJECTS" },
+    { value: 150, suffix: "+", label: "STUDENTS MENTORED" },
+];
 
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-    };
+function CountUp({ value, suffix }: { value: number; suffix: string }) {
+    const ref = useRef<HTMLSpanElement>(null);
+    const inView = useInView(ref, { once: true, margin: "-40px" });
+    const [display, setDisplay] = useState(0);
 
-    const paragraphs = [
-        "I build and maintain production-grade software systems where correctness, performance, and reliability are non-negotiable.",
-        "My work sits at the intersection of algorithms, automation, and applied GenAI. Over the past few years, I’ve worked on real-world engineering problems—designing and optimizing algorithms, building automation tooling, and integrating AI capabilities into systems that operate under practical constraints.",
-        "I’m comfortable working close to the core of systems: debugging complex issues, reasoning about edge cases, and improving performance through iterative refinement. I’ve collaborated closely with product, software, testing, and application teams to translate requirements into robust, deployable solutions.",
-        "I value clarity, ownership, and continuous learning, and I’m drawn to environments that emphasize strong engineering practices, thoughtful collaboration, and long-term impact over short-term wins."
-    ];
+    useEffect(() => {
+        if (!inView) return;
+        const controls = animate(0, value, {
+            duration: 1.6,
+            ease: [0.22, 1, 0.36, 1],
+            onUpdate: (latest) => setDisplay(Math.round(latest)),
+        });
+        return () => controls.stop();
+    }, [inView, value]);
 
     return (
-        <section id="about" className="min-h-screen flex items-center justify-center py-20 px-6 bg-[var(--color-bg-secondary)]/30">
-            <div className="container mx-auto">
-                <motion.div
-                    className="mb-12"
-                    initial={{ opacity: 0, y: -20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
-                >
-                    <h6 className="text-[#FD9000] font-bold tracking-widest uppercase mb-2">ABOUT</h6>
-                    <h1 className="text-4xl md:text-5xl font-bold">I'M</h1>
-                </motion.div>
+        <span ref={ref}>
+            {display}
+            <span className="text-[#FD9000]">{suffix}</span>
+        </span>
+    );
+}
 
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+export default function About() {
+    return (
+        <section id="about" className="relative overflow-hidden px-6 py-28 md:py-36">
+            {/* Quiet aurora glow */}
+            <div
+                className="pointer-events-none absolute -left-1/4 top-1/4 h-[50vw] w-[50vw] rounded-full opacity-60"
+                style={{
+                    background: "radial-gradient(circle, rgba(253,144,0,0.07) 0%, transparent 60%)",
+                    filter: "blur(90px)",
+                }}
+            />
+
+            <div className="container mx-auto max-w-6xl">
+                <div className="grid grid-cols-1 items-center gap-14 md:grid-cols-12">
+                    {/* HUD Portrait */}
                     <motion.div
-                        className="md:col-span-4"
-                        initial={{ opacity: 0, x: -50, rotate: -5 }}
-                        whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-                        transition={{ duration: 0.8, type: "spring" }}
-                        viewport={{ once: true }}
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                        className="md:col-span-5"
                     >
-                        <div className="relative group perspective-1000">
-                            {/* Decorative backdrop elements */}
-                            <div className="absolute -inset-4 bg-gradient-to-tr from-[#FD9000]/20 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                        <div className="group relative mx-auto w-full max-w-sm">
+                            {/* Corner brackets */}
+                            <span className="absolute -left-2 -top-2 z-20 h-6 w-6 border-l-2 border-t-2 border-[#FD9000]"></span>
+                            <span className="absolute -right-2 -top-2 z-20 h-6 w-6 border-r-2 border-t-2 border-[#FD9000]"></span>
+                            <span className="absolute -bottom-2 -left-2 z-20 h-6 w-6 border-b-2 border-l-2 border-[#FD9000]"></span>
+                            <span className="absolute -bottom-2 -right-2 z-20 h-6 w-6 border-b-2 border-r-2 border-[#FD9000]"></span>
 
-                            <div className="absolute inset-0 bg-[#FD9000] rounded-2xl rotate-6 group-hover:rotate-3 transition-transform duration-500 opacity-20"></div>
-                            <Image
-                                src="/assets/images/person.webp"
-                                alt="Profile Picture"
-                                width={400}
-                                height={500}
-                                className="relative rounded-2xl shadow-2xl z-10 w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 will-change-transform group-hover:-translate-y-2"
-                            />
+                            <div className="relative overflow-hidden rounded-2xl border border-white/10">
+                                <Image
+                                    src="/assets/images/person.webp"
+                                    alt="Saran Mahadev"
+                                    width={400}
+                                    height={500}
+                                    className="w-full object-cover grayscale transition-all duration-700 group-hover:scale-[1.03] group-hover:grayscale-0"
+                                />
+                                {/* Scanline sweep */}
+                                <motion.div
+                                    className="absolute left-0 right-0 h-20 bg-gradient-to-b from-transparent via-[#FD9000]/15 to-transparent"
+                                    animate={{ top: ["-20%", "115%"] }}
+                                    transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
+                                />
+                                {/* Warm glow on hover */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#FD9000]/20 to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100"></div>
+                            </div>
+
+                            {/* Status readout */}
+                            <div className="mt-5 flex items-center justify-center gap-5 font-mono text-[11px] tracking-[0.2em] text-white/50">
+                                <span className="flex items-center gap-2">
+                                    <span className="h-1.5 w-1.5 rounded-full bg-[#FD9000]"></span>
+                                    BANGALORE, IN
+                                </span>
+                                <span className="flex items-center gap-2">
+                                    <span className="h-1.5 w-1.5 rounded-full bg-[#FD9000]"></span>
+                                    R&D @ ZENTRON LABS
+                                </span>
+                            </div>
                         </div>
                     </motion.div>
 
-                    <motion.div
-                        className="md:col-span-8 relative"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.2 }}
-                    >
-                        {/* Large Quote Mark */}
-                        <div className="absolute -top-10 -left-6 text-[#FD9000]/20 text-9xl font-serif select-none pointer-events-none">
-                            “
+                    {/* Summary */}
+                    <div className="md:col-span-7">
+                        <motion.h6
+                            initial={{ opacity: 0, y: 16 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="mb-3 font-mono text-sm tracking-[0.3em] text-[#FD9000]"
+                        >
+                            {"//"} ABOUT
+                        </motion.h6>
+
+                        <div>
+                            <motion.h2
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                                className="mb-8 text-3xl font-black tracking-tight md:text-5xl"
+                            >
+                                Building intelligent systems{" "}
+                                <span className="bg-gradient-to-r from-[#FD9000] to-[#FF5E00] bg-clip-text text-transparent">
+                                    that ship.
+                                </span>
+                            </motion.h2>
                         </div>
 
-                        <div className="relative z-10 space-y-6 text-[var(--color-text-secondary)] text-lg leading-relaxed font-light italic">
-                            {paragraphs.map((text, pIndex) => (
-                                <p key={pIndex}>
-                                    {text.split(" ").map((word, wIndex) => (
-                                        <motion.span
-                                            key={wIndex}
-                                            initial={{ opacity: 0, filter: "blur(10px)" }}
-                                            whileInView={{ opacity: 1, filter: "blur(0px)" }}
-                                            transition={{
-                                                duration: 0.5,
-                                                delay: (pIndex * 1.5) + (wIndex * 0.05),
-                                                ease: "easeOut"
-                                            }}
-                                            className="inline-block mr-1.5"
-                                        >
-                                            {word}
-                                        </motion.span>
-                                    ))}
-                                </p>
+                        {/* Stats */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.7, delay: 0.2 }}
+                            className="flex divide-x divide-white/10"
+                        >
+                            {STATS.map((stat, i) => (
+                                <div
+                                    key={stat.label}
+                                    className={`${i === 0 ? "pr-6 md:pr-10" : "px-6 md:px-10"}`}
+                                >
+                                    <div className="text-3xl font-black text-white md:text-5xl">
+                                        <CountUp value={stat.value} suffix={stat.suffix} />
+                                    </div>
+                                    <div className="mt-2 font-mono text-[9px] tracking-[0.2em] text-white/50 md:text-[11px]">
+                                        {stat.label}
+                                    </div>
+                                </div>
                             ))}
-                        </div>
-
-                        {/* Closing Quote */}
-                        <div className="absolute -bottom-10 -right-6 text-[#FD9000]/20 text-9xl font-serif select-none pointer-events-none rotate-180">
-                            “
-                        </div>
-                    </motion.div>
+                        </motion.div>
+                    </div>
                 </div>
             </div>
         </section>

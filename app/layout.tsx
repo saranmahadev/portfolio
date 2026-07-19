@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
-import { Bai_Jamjuree } from "next/font/google";
 import "./globals.css";
-
-const baiJamjuree = Bai_Jamjuree({
-  variable: "--font-bai-jamjuree",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
 
 import ScrollProgress from "./components/ui/ScrollProgress";
 
 export const metadata: Metadata = {
-  title: "Dev | Cloud and DevOps Engineer",
-  description: "Portfolio of Saran Mahadev - Core Product Developer & Cloud Engineer",
+  title: "Saran Mahadev | Generative AI Engineer",
+  description: "Generative AI engineer building agentic AI, RAG, computer vision, and developer tooling.",
 };
 
 export default function RootLayout({
@@ -25,9 +18,7 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
       </head>
-      <body
-        className={`${baiJamjuree.variable} antialiased`}
-      >
+      <body className="antialiased">
         <ScrollProgress />
         {children}
       </body>

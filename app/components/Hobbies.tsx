@@ -1,139 +1,93 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
-import React from "react";
+import type { MouseEvent } from "react";
 
 const hobbies = [
-    { src: "2.svg", label: "Trying New Food", color: "#F59E0B" },
-    { src: "3.svg", label: "Music", color: "#EF4444" },
-    { src: "4.svg", label: "Travel", color: "#10B981" },
-    { src: "5.svg", label: "Reading", color: "#3B82F6" },
-    { src: "6.svg", label: "Content Creation", color: "#8B5CF6" },
-    { src: "7.svg", label: "Handball", color: "#EC4899" },
+    { src: "2.svg", label: "Trying New Food", code: "TASTE", detail: "Curiosity on a plate" },
+    { src: "3.svg", label: "Music", code: "AUDIO", detail: "Focus through rhythm" },
+    { src: "4.svg", label: "Travel", code: "ROAM", detail: "New places, new context" },
+    { src: "5.svg", label: "Reading", code: "READ", detail: "Ideas beyond the screen" },
+    { src: "6.svg", label: "Content Creation", code: "MAKE", detail: "Turning lessons into stories" },
+    { src: "7.svg", label: "Handball", code: "PLAY", detail: "Energy, timing, teamwork" },
 ];
 
-// Triple the list for a longer, smoother seamless loop on wide screens
-const danceHobbies = [...hobbies, ...hobbies, ...hobbies];
+const loopedHobbies = [...hobbies, ...hobbies, ...hobbies];
 
-function Card({ hobby, index }: { hobby: typeof hobbies[0]; index: number }) {
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-    const mouseX = useSpring(x, { stiffness: 500, damping: 30 });
-    const mouseY = useSpring(y, { stiffness: 500, damping: 30 });
-    const rotateX = useTransform(mouseY, [-0.5, 0.5], ["15deg", "-15deg"]);
-    const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-15deg", "15deg"]);
-    const glareX = useTransform(mouseX, [-0.5, 0.5], ["0%", "100%"]);
-    const glareY = useTransform(mouseY, [-0.5, 0.5], ["0%", "100%"]);
+function HobbyCard({ hobby, index, duplicate }: { hobby: (typeof hobbies)[number]; index: number; duplicate: boolean }) {
+    const reduceMotion = useReducedMotion();
+    const pointerX = useMotionValue(0);
+    const pointerY = useMotionValue(0);
+    const springX = useSpring(pointerX, { stiffness: 320, damping: 28 });
+    const springY = useSpring(pointerY, { stiffness: 320, damping: 28 });
+    const rotateX = useTransform(springY, [-0.5, 0.5], ["8deg", "-8deg"]);
+    const rotateY = useTransform(springX, [-0.5, 0.5], ["-8deg", "8deg"]);
+    const iconX = useTransform(springX, [-0.5, 0.5], [-10, 10]);
+    const iconY = useTransform(springY, [-0.5, 0.5], [-10, 10]);
+    const glareX = useTransform(springX, [-0.5, 0.5], ["20%", "80%"]);
+    const glareY = useTransform(springY, [-0.5, 0.5], ["20%", "80%"]);
 
-    function onMouseMove(event: React.MouseEvent<HTMLDivElement>) {
+    const handlePointer = (event: MouseEvent<HTMLElement>) => {
+        if (reduceMotion) return;
         const rect = event.currentTarget.getBoundingClientRect();
-        const mouseXVal = event.clientX - rect.left;
-        const mouseYVal = event.clientY - rect.top;
-        x.set(mouseXVal / rect.width - 0.5);
-        y.set(mouseYVal / rect.height - 0.5);
-    }
+        pointerX.set((event.clientX - rect.left) / rect.width - 0.5);
+        pointerY.set((event.clientY - rect.top) / rect.height - 0.5);
+    };
 
     return (
-        <motion.div
-            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-            onMouseMove={onMouseMove}
-            onMouseLeave={() => { x.set(0); y.set(0); }}
-            // --- ROLLER COASTER ANIMATION ---
-            // 1. Y: Moves Up and Down (Sine Wave)
-            // 2. Rotate: Banks slightly with the curve
-            // 3. Scale: Moves "Near" and "Far" (Z-depth simulation)
-            animate={{
-                y: [40, -40, 40],
-                rotate: [-5, 5, -5],
-                scale: [0.9, 1.1, 0.9],
-                zIndex: [0, 50, 0] // Draws overlapping items correctly when "close"
-            }}
-            transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: index * 0.8 // Stagger to create the wave shape
-            }}
-            className="relative w-64 h-80 flex-shrink-0 rounded-3xl bg-[#0a0a0a] border border-white/10 group cursor-pointer"
-        >
-            {/* Card Background Patterns */}
-            <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.03),transparent_70%)]"></div>
-            </div>
+        <div className="hobby-wave shrink-0" style={{ animationDelay: `${(index % hobbies.length) * -0.72}s` }}>
+            <motion.article
+                aria-hidden={duplicate}
+                onMouseMove={handlePointer}
+                onMouseLeave={() => { pointerX.set(0); pointerY.set(0); }}
+                style={reduceMotion ? undefined : { rotateX, rotateY, transformStyle: "preserve-3d" }}
+                className="hobby-card group relative h-72 w-56 overflow-hidden border border-white/10 bg-[#090909] [clip-path:polygon(18px_0,100%_0,100%_calc(100%-18px),calc(100%-18px)_100%,0_100%,0_18px)] md:h-80 md:w-64"
+            >
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(253,144,0,0.08),transparent_48%)]" />
+                <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(255,255,255,.035)_1px,transparent_1px)] [background-size:100%_18px]" />
+                <span className="corner-bracket left-3 top-3 border-l border-t" aria-hidden="true" />
+                <span className="corner-bracket bottom-3 right-3 border-b border-r" aria-hidden="true" />
 
-            {/* Floating Content Layer */}
-            <div style={{ transform: "translateZ(50px)" }} className="absolute inset-0 flex flex-col items-center justify-center p-6 pointer-events-none">
-                <div className="relative w-40 h-40 drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-110">
-                    <Image
-                        src={`/assets/images/hobbies/${hobby.src}`}
-                        alt={hobby.label}
-                        fill
-                        className="object-contain"
-                        unoptimized
-                    />
+                <motion.div style={reduceMotion ? undefined : { x: iconX, y: iconY, transform: "translateZ(45px)" }} className="absolute inset-x-8 top-10 aspect-square transition-transform duration-500 group-hover:scale-110">
+                    <Image src={`/assets/images/hobbies/${hobby.src}`} alt="" fill sizes="180px" className="object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.6)]" />
+                </motion.div>
+
+                <div className="absolute inset-x-5 bottom-5 z-10 border-t border-white/10 pt-4">
+                    <div className="mb-1 flex items-center justify-between font-mono text-[9px] tracking-[0.2em] text-[#FD9000]">
+                        <span>{hobby.code}</span><span>0{(index % hobbies.length) + 1}</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white">{hobby.label}</h3>
+                    <p className="mt-1 text-xs text-white/45">{hobby.detail}</p>
                 </div>
-            </div>
 
-            {/* Holographic Glare */}
-            <motion.div
-                style={{
-                    background: `radial-gradient(circle at ${glareX} ${glareY}, rgba(255,255,255,0.15) 0%, transparent 80%)`,
-                    transform: "translateZ(1px)"
-                }}
-                className="absolute inset-0 rounded-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            />
-
-            {/* Border Glow */}
-            <div
-                className="absolute inset-0 rounded-3xl border border-white/5 transition-all duration-300 group-hover:border-opacity-50 group-hover:shadow-[0_0_30px_rgba(0,0,0,0.5)]"
-                style={{ borderColor: 'rgba(255,255,255,0.1)' }}
-            ></div>
-        </motion.div>
+                <motion.div style={{ background: `radial-gradient(circle at ${glareX} ${glareY}, rgba(255,255,255,.16), transparent 55%)` }} className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute inset-0 border border-transparent transition duration-300 group-hover:border-[#FD9000]/50 group-hover:shadow-[inset_0_0_35px_rgba(253,144,0,.08)]" />
+            </motion.article>
+        </div>
     );
 }
 
 export default function Hobbies() {
+    const reduceMotion = useReducedMotion();
     return (
-        <section id="hobbies" className="min-h-[80vh] py-24 relative overflow-hidden bg-[#050505] perspective-1000 flex flex-col justify-center">
-
-            {/* Dark Gradient Background */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black via-[#050505] to-black z-0"></div>
-                {/* Track Guide (Visual Only) */}
-                <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#FD9000]/20 to-transparent blur-[2px]"></div>
+        <section id="hobbies" className="section-shell flex min-h-[85vh] flex-col justify-center overflow-hidden bg-[#050505] py-24">
+            <div className="section-grid" aria-hidden="true" />
+            <div className="relative z-10 mx-auto mb-16 max-w-4xl px-6 text-center">
+                <motion.p initial={reduceMotion ? false : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-kicker">{"//"} OFFLINE SIGNALS</motion.p>
+                <motion.h2 initial={reduceMotion ? false : { opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-title">BEYOND THE <span>TERMINAL</span></motion.h2>
+                <p className="section-readout">06 INTERESTS · CURIOSITY ALWAYS RUNNING</p>
             </div>
 
-            <div className="container mx-auto px-6 relative z-10 mb-16">
-                <div className="text-center" data-aos="fade-up">
-                    <h6 className="text-[#FD9000] font-bold tracking-widest uppercase mb-2">PERSONAL COLLECTION</h6>
-                    <h1 className="text-4xl md:text-5xl font-bold">HOBBIES</h1>
-                    <div className="w-20 h-1 bg-[#FD9000] mx-auto rounded-full mt-4"></div>
+            <div className="hobby-marquee relative z-10 overflow-hidden py-14" aria-label="Personal interests">
+                <div className="data-track" aria-hidden="true"><span /><span /><span /></div>
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-10 bg-gradient-to-r from-[#050505] to-transparent md:w-32" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-10 bg-gradient-to-l from-[#050505] to-transparent md:w-32" />
+                <div className="hobby-track flex w-max items-center gap-5 px-5 md:gap-10">
+                    {loopedHobbies.map((hobby, index) => <HobbyCard key={`${hobby.label}-${index}`} hobby={hobby} index={index} duplicate={index >= hobbies.length} />)}
                 </div>
             </div>
-
-            {/* Roller Coaster Container */}
-            <div className="w-full relative overflow-hidden flex z-20 py-20">
-                <motion.div
-                    className="flex gap-4 md:gap-12 px-8 items-center"
-                    animate={{ x: ["0%", "-100%"] }} // Adjust based on list length logic
-                    // Actually, for a seamless infinite loop of a set of N items copied K times:
-                    // It should move exactly the width of the original N items.
-                    // This is hard to calc perfectly in CSS % without known widths.
-                    // Let's rely on a large negative % and just loop it visually 'good enough' or use a very large duplicate set.
-                    transition={{
-                        duration: 40,
-                        repeat: Infinity,
-                        ease: "linear"
-                    }}
-                    style={{ minWidth: "max-content" }}
-                >
-                    {danceHobbies.map((hobby, index) => (
-                        <Card key={index} hobby={hobby} index={index} />
-                    ))}
-                </motion.div>
-            </div>
-
+            <p className="relative z-10 mt-5 text-center font-mono text-[10px] tracking-[0.22em] text-white/35">HOVER TO PAUSE · MOVE TO TILT</p>
         </section>
     );
 }
