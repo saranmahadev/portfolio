@@ -31,7 +31,7 @@ export default function Experience() {
             title: "Associate Software Engineer (R&D)",
             company: "Zentron Labs",
             location: "Bangalore",
-            duration: "Feb 2023 - Present",
+            duration: "Feb 2023 - Nov 2026",
             type: "Full-time",
             logo: "/assets/images/company/Zentron Labs.png",
             description: "Enterprise Computer Vision, Generative AI platforms, Agentic AI, and developer tooling.",
@@ -44,6 +44,17 @@ export default function Experience() {
                 "Collaborate with software, QA, and product teams to translate research prototypes into production-ready algorithm solutions.",
                 "Develop deterministic Computer Vision algorithms and optimization systems for industrial inspection applications."
             ]
+        },
+        {
+            id: "infosys",
+            title: "Senior Associate Consultant (GenAI)",
+            company: "Infosys",
+            duration: "Nov 2026 - Present",
+            type: "Full-time",
+            logo: "/assets/images/company/Infosys.jpg",
+            description: "Joining as a Senior Associate Consultant.",
+            skills: ["Generative AI"],
+            items: []
         }
     ];
 
@@ -141,10 +152,10 @@ export default function Experience() {
                                                     </div>
                                                     <div>
                                                         <h3 className="text-2xl font-bold text-white leading-tight">{exp.company}</h3>
-                                                        <p className="text-sm font-medium text-gray-400">{exp.location}</p>
+                                                        {exp.location && <p className="text-sm font-medium text-gray-400">{exp.location}</p>}
                                                     </div>
                                                 </div>
-                                                {exp.id === "zentron" && (
+                                                {exp.id === "infosys" && (
                                                     <div className="px-3 py-1 bg-[#FD9000]/10 border border-[#FD9000] text-[#FD9000] font-mono text-xs font-bold uppercase tracking-[0.2em] animate-pulse [clip-path:polygon(8px_0,100%_0,100%_calc(100%-8px),calc(100%-8px)_100%,0_100%,0_8px)]">
                                                         Current
                                                     </div>

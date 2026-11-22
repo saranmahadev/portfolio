@@ -1,0 +1,238 @@
+.technicalArsenal {
+    --arsenal-background: #0a0a0a;
+    --arsenal-primary: #ffffff;
+    --arsenal-secondary: rgba(255, 255, 255, 0.5);
+    --arsenal-accent: #FD9000;
+    --arsenal-divider: rgba(255, 255, 255, 0.1);
+    background: var(--arsenal-background);
+    color: var(--arsenal-primary);
+    padding: clamp(5.5rem, 11vw, 10.5rem) clamp(1.5rem, 4vw, 3rem) clamp(4.5rem, 9vw, 8rem);
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+}
+
+.inner {
+    max-width: 90rem;
+    margin: 0 auto;
+}
+
+.hero {
+    text-align: center;
+    padding-bottom: clamp(2rem, 4.5vw, 4.25rem);
+}
+
+.sectionKicker,
+.sectionMeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--arsenal-secondary);
+    font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    line-height: 1.3;
+}
+
+.sectionKicker {
+    justify-content: center;
+    margin: 0 0 0.75rem;
+    color: var(--arsenal-accent);
+    font-size: 0.875rem;
+    letter-spacing: 0.3em;
+}
+
+.heroTitle {
+    margin: 0;
+    color: var(--arsenal-primary);
+    font-size: clamp(2.5rem, 6.5vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 1;
+}
+
+.heroTitle span {
+    color: transparent;
+    background: linear-gradient(90deg, #FD9000, #FF5E00);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.heroReadout {
+    margin: 1rem 0 0;
+    color: var(--arsenal-secondary);
+    font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    font-size: clamp(0.625rem, 0.85vw, 0.75rem);
+    letter-spacing: 0.2em;
+}
+
+.heroFooter {
+    display: grid;
+    grid-template-columns: minmax(0, 32rem) auto;
+    justify-content: center;
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+    margin-top: clamp(2rem, 4vw, 3.5rem);
+    text-align: left;
+}
+
+.heroFooter > p {
+    max-width: 33rem;
+    margin: 0;
+    color: var(--arsenal-secondary);
+    font-size: clamp(0.8125rem, 1.2vw, 0.9375rem);
+    line-height: 1.55;
+}
+
+.statistics {
+    display: flex;
+    gap: clamp(1.75rem, 4vw, 4rem);
+    margin: 0;
+}
+
+.statistics div { min-width: 4.5rem; }
+
+.statistics dt {
+    color: var(--arsenal-primary);
+    font-size: clamp(2rem, 3.1vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.07em;
+    line-height: 0.9;
+}
+
+.statistics dd {
+    margin: 0.55rem 0 0;
+    color: var(--arsenal-secondary);
+    font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+}
+
+.arsenalGrid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 0;
+    padding: clamp(3.5rem, 7vw, 7rem) 0 clamp(3rem, 6vw, 6rem);
+}
+
+.arsenalSection {
+    min-width: 0;
+    display: flex;
+    min-height: 15.5rem;
+    flex-direction: column;
+    border: 1px solid var(--arsenal-divider);
+    background: rgba(10, 10, 10, 0.82);
+    padding: clamp(1rem, 1.75vw, 1.6rem);
+    transition: border-color 220ms ease, background-color 220ms ease;
+    clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+
+.arsenalSection:hover { border-color: rgba(253, 144, 0, 0.55); background: rgba(253, 144, 0, 0.035); }
+
+.sectionMeta { justify-content: flex-start; gap: 0.25rem; }
+.sectionMeta span { color: var(--arsenal-accent); }
+
+.arsenalSection h3 {
+    max-width: 18ch;
+    margin: clamp(1.35rem, 2vw, 2rem) 0 clamp(0.75rem, 1.15vw, 1.1rem);
+    color: var(--arsenal-primary);
+    font-size: clamp(1.2rem, 1.8vw, 1.75rem);
+    font-weight: 600;
+    letter-spacing: -0.05em;
+    line-height: 1.02;
+}
+
+.technologyField {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.45rem;
+}
+
+.technologyTag {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    border: 1px solid var(--arsenal-divider);
+    color: var(--arsenal-primary);
+    padding: 0.38rem 0.52rem 0.35rem;
+    font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    font-size: clamp(0.68rem, 0.78vw, 0.78rem);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    transition: border-color 180ms ease, color 180ms ease;
+    clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
+.technologyTag:hover { border-color: var(--arsenal-accent); }
+
+.tagLarge,
+.tagMedium,
+.tagSmall {
+    border: 0;
+    padding: 0.05rem 0.2rem 0.15rem 0;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.07em;
+    line-height: 0.96;
+    clip-path: none;
+}
+
+.tagLarge { font-size: clamp(1.8rem, 3.1vw, 3.65rem); }
+.tagMedium { font-size: clamp(1.15rem, 1.7vw, 1.75rem); }
+.tagSmall { font-size: clamp(0.85rem, 1.15vw, 1.05rem); }
+.tagLarge:hover, .tagMedium:hover, .tagSmall:hover { color: var(--arsenal-accent); }
+
+.languages { grid-column: 1 / span 5; grid-row: 1; }
+.foundationModels { grid-column: 6 / span 7; grid-row: 1; }
+.frameworks { grid-column: 1 / span 8; grid-row: 2; }
+.agents { grid-column: 9 / span 4; grid-row: 2; }
+.vectors { grid-column: 1 / span 4; grid-row: 3; }
+.machineLearning { grid-column: 5 / span 8; grid-row: 3; }
+.vision { grid-column: 1 / span 5; grid-row: 4; }
+.backend { grid-column: 6 / span 3; grid-row: 4; }
+.databases { grid-column: 9 / span 4; grid-row: 4; }
+.cloud { grid-column: 1 / span 7; grid-row: 5; }
+.llmops { grid-column: 8 / span 5; grid-row: 5; }
+.ecosystem { grid-column: 1 / -1; grid-row: 6; }
+
+.foundationModels h3,
+.frameworks h3,
+.machineLearning h3,
+.cloud h3,
+.llmops h3 { font-size: clamp(1.45rem, 2.3vw, 2rem); }
+
+@media (max-width: 1024px) {
+    .arsenalGrid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    .languages, .foundationModels { grid-column: span 3; grid-row: auto; }
+    .frameworks, .machineLearning, .cloud, .databases, .llmops, .ecosystem { grid-column: span 6; grid-row: auto; }
+    .agents, .vectors, .vision, .backend { grid-column: span 3; grid-row: auto; }
+}
+
+@media (max-width: 679px) {
+    .technicalArsenal { padding-inline: 1.25rem; }
+    .sectionKicker { font-size: 0.7rem; }
+    .heroTitle { font-size: clamp(2.35rem, 11vw, 3.5rem); }
+    .heroFooter { grid-template-columns: 1fr; gap: 2.25rem; }
+    .heroFooter > p { text-align: center; margin-inline: auto; }
+    .statistics { justify-content: center; }
+    .statistics { gap: 2.5rem; }
+    .arsenalGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-top: 3.25rem; }
+    .arsenalSection { grid-column: span 2; grid-row: auto; }
+    .arsenalSection { min-height: 0; }
+    .arsenalSection[data-density="sparse"] { min-height: 14rem; }
+    .arsenalSection[data-density="balanced"] { min-height: 15.5rem; }
+    .arsenalSection[data-density="dense"] { min-height: 18rem; }
+    .arsenalSection h3 { margin: 1.15rem 0 0.75rem; }
+    .technologyField { gap: 0.4rem; }
+    .technologyTag { font-size: 0.64rem; }
+    .tagLarge { font-size: clamp(1.8rem, 9vw, 2.5rem); }
+    .tagMedium { font-size: clamp(1.05rem, 5.5vw, 1.45rem); }
+    .arsenalSection[data-density="sparse"] .tagLarge { font-size: clamp(2.25rem, 12vw, 3.25rem); }
+    .arsenalSection[data-density="sparse"] .tagMedium { font-size: clamp(1.25rem, 6.5vw, 1.65rem); }
+    .arsenalSection[data-density="dense"] .tagLarge { font-size: clamp(1.45rem, 7.5vw, 2.1rem); }
+    .arsenalSection[data-density="dense"] .tagMedium { font-size: clamp(1rem, 5vw, 1.3rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .technologyTag { transition: none; }
+}
