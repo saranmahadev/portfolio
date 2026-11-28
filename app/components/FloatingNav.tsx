@@ -2,11 +2,21 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, ExternalLink, Menu, X } from "lucide-react";
+
+const resources = [
+    { name: "Blog", href: "https://blog.saranmahadev.in" },
+    { name: "Workshops", href: "https://workshop.saranmahadev.in" },
+    { name: "Shop", href: "https://shop.saranmahadev.in" },
+    { name: "Courses", href: "https://courses.saranmahadev.in" },
+    { name: "AI Base", href: "https://ai.saranmahadev.in" },
+    { name: "Resume.pdf", href: "/assets/pdfs/resume.pdf" },
+];
 
 export default function FloatingNav() {
     const [isVisible, setIsVisible] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isResourcesOpen, setIsResourcesOpen] = useState(false);
 
     useEffect(() => {
         const handleInteraction = (e: MouseEvent | null) => {
@@ -52,7 +62,8 @@ export default function FloatingNav() {
                         className="pointer-events-auto"
                     >
                         {/* Desktop Nav */}
-                        <nav aria-label="Primary navigation" className="hidden md:flex items-center gap-2 border border-[var(--border-glass)] bg-[var(--surface-glass-strong)] px-3 py-3 backdrop-blur-xl shadow-lg shadow-[var(--accent-glow)] [clip-path:polygon(12px_0,100%_0,100%_calc(100%-12px),calc(100%-12px)_100%,0_100%,0_12px)]">
+                        <div className="relative hidden md:block">
+                            <nav aria-label="Primary navigation" className="flex items-center gap-2 border border-[var(--border-glass)] bg-[var(--surface-glass-strong)] px-3 py-3 backdrop-blur-xl shadow-lg shadow-[var(--accent-glow)] [clip-path:polygon(12px_0,100%_0,100%_calc(100%-12px),calc(100%-12px)_100%,0_100%,0_12px)]">
                             {navItems.map((item) => (
                                 <a
                                     key={item.name}
@@ -63,7 +74,50 @@ export default function FloatingNav() {
                                     <span className="absolute inset-0 bg-[var(--primary)] rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 z-0"></span>
                                 </a>
                             ))}
-                        </nav>
+                                <button
+                                    type="button"
+                                    aria-expanded={isResourcesOpen}
+                                    aria-haspopup="menu"
+                                    aria-controls="resource-navigation"
+                                    onClick={() => setIsResourcesOpen((open) => !open)}
+                                    className="group relative flex items-center gap-1.5 rounded-full px-4 py-2 text-base font-medium text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--primary-foreground)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
+                                >
+                                    <span className="relative z-10">Explore</span>
+                                    <ChevronDown size={15} className={`relative z-10 transition-transform duration-200 ${isResourcesOpen ? "rotate-180" : ""}`} />
+                                    <span className="absolute inset-0 z-0 scale-75 rounded-full bg-[var(--primary)] opacity-0 transition-all duration-200 group-hover:scale-100 group-hover:opacity-100" />
+                                </button>
+                            </nav>
+                            <AnimatePresence>
+                                {isResourcesOpen && (
+                                    <motion.div
+                                        id="resource-navigation"
+                                        role="menu"
+                                        initial={{ opacity: 0, y: -8, scale: 0.96 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                                        transition={{ duration: 0.18, ease: "easeOut" }}
+                                        className="absolute right-0 top-[calc(100%+0.8rem)] z-10 w-56 overflow-hidden border border-[var(--border-glass-strong)] bg-[var(--surface-glass-strong)] p-2 shadow-xl shadow-[var(--shadow)] backdrop-blur-xl [clip-path:polygon(10px_0,100%_0,100%_calc(100%-10px),calc(100%-10px)_100%,0_100%,0_10px)]"
+                                    >
+                                        {resources.map((resource) => (
+                                            <div key={resource.name}>
+                                                {resource.name === "Resume.pdf" && <div role="separator" className="my-2 border-t border-[var(--border-subtle)]" />}
+                                                <a
+                                                    href={resource.href}
+                                                    role="menuitem"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    onClick={() => setIsResourcesOpen(false)}
+                                                    className="group flex items-center justify-between rounded-md px-3 py-2.5 font-mono text-xs tracking-[0.12em] text-[var(--text-secondary)] transition hover:bg-[var(--accent-faint)] hover:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
+                                                >
+                                                    {resource.name}
+                                                    <ExternalLink size={14} className="text-[var(--text-disabled)] transition group-hover:text-[var(--accent)]" />
+                                                </a>
+                                            </div>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
 
                         {/* Mobile Nav */}
                         <div className="md:hidden flex flex-col items-end gap-2">
@@ -96,6 +150,24 @@ export default function FloatingNav() {
                                                 {item.name}
                                             </a>
                                         ))}
+                                        <div className="mt-2 border-t border-[var(--border-subtle)] pt-2">
+                                            <p className="px-4 py-2 font-mono text-[9px] tracking-[0.2em] text-[var(--text-disabled)]">EXPLORE</p>
+                                            {resources.map((resource) => (
+                                                <div key={resource.name}>
+                                                    {resource.name === "Resume.pdf" && <div role="separator" className="mx-4 my-2 border-t border-[var(--border-subtle)]" />}
+                                                    <a
+                                                        href={resource.href}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        onClick={() => setIsMobileMenuOpen(false)}
+                                                        className="flex items-center justify-between rounded-lg px-4 py-3 text-lg font-medium text-[var(--text-secondary)] transition hover:bg-[var(--surface-strong)] hover:text-[var(--primary)]"
+                                                    >
+                                                        {resource.name}
+                                                        <ExternalLink size={15} />
+                                                    </a>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </motion.nav>
                                 )}
                             </AnimatePresence>

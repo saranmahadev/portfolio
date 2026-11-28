@@ -9,7 +9,7 @@ import {
     useTransform,
     type Variants,
 } from "framer-motion";
-import { Download, Github, Linkedin, Mail } from "lucide-react";
+import { Github, Instagram, Linkedin, Mail, Youtube } from "lucide-react";
 import AuroraField from "./ui/AuroraField";
 
 const ROLES = [
@@ -36,7 +36,9 @@ const MARQUEE_ITEMS = [
 const SOCIALS = [
     { icon: Mail, href: "mailto:mail@saranmahadev.in", label: "Email" },
     { icon: Linkedin, href: "https://linkedin.com/in/saranmahadev", label: "LinkedIn" },
+    { icon: Youtube, href: "http://youtube.com/@saranmahadev", label: "YouTube" },
     { icon: Github, href: "https://github.com/saranmahadev", label: "GitHub" },
+    { icon: Instagram, href: "https://instagram.com/everything.by.dev", label: "Instagram" },
 ];
 
 /* Cycles through words with a decrypt/scramble resolve effect */
@@ -241,35 +243,12 @@ export default function Hero() {
                     <span className="animate-blink h-5 w-[2px] bg-[var(--primary)] md:h-6"></span>
                 </motion.div>
 
-                {/* CTAs */}
-                <motion.div
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.45, duration: 0.7 }}
-                    className="mt-12 flex flex-col items-center gap-5 sm:flex-row"
-                >
-                    <Magnetic>
-                        <a
-                            href="/assets/pdfs/resume.pdf"
-                            download="Saran-Mahadev-Resume.pdf"
-                            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-xl bg-gradient-to-br from-[var(--primary)] to-[var(--primary-active)] py-3 pl-3 pr-7 font-bold text-[var(--primary-foreground)] shadow-[0_8px_30px_var(--accent-glow)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_45px_var(--accent-medium)]"
-                        >
-                            {/* Sheen sweep */}
-                            <span className="absolute inset-y-0 left-0 w-1/3 -translate-x-[150%] skew-x-[-20deg] bg-[var(--milk-sheen)] blur-sm transition-transform duration-700 group-hover:translate-x-[400%]"></span>
-                            <span className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--accent)]">
-                                <Download size={17} className="transition-transform duration-300 group-hover:translate-y-0.5" />
-                            </span>
-                            <span className="relative text-sm tracking-[0.15em] md:text-base">DOWNLOAD RESUME</span>
-                        </a>
-                    </Magnetic>
-                </motion.div>
-
                 {/* Socials */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 1.65, duration: 0.8 }}
-                    className="mt-12 flex items-center gap-8"
+                    transition={{ delay: 1.45, duration: 0.8 }}
+                    className="mt-10 flex items-center gap-8"
                 >
                     {SOCIALS.map(({ icon: Icon, href, label }) => (
                         <Magnetic key={label}>

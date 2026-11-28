@@ -8,6 +8,7 @@ import Certificates from "./components/Certificates";
 import Hobbies from "./components/Hobbies";
 import Volunteer from "./components/Volunteer";
 import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       <Certificates />
       <Hobbies />
       <Contact />
+      <Footer />
     </main>
   );
 }

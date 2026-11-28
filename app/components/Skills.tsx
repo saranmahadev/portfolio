@@ -66,6 +66,12 @@ const ARSENAL: ArsenalSectionData[] = [
         layout: "agents",
         technologies: [
             { name: "MCP", emphasis: "large" },
+            { name: "Multi-Agent Systems", emphasis: "medium" },
+            { name: "Tool Calling" },
+            { name: "Function Calling" },
+            { name: "A2A Protocol" },
+            { name: "Agent Evaluation" },
+            { name: "Human-in-the-Loop" },
         ],
     },
     {
