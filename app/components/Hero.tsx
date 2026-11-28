@@ -34,7 +34,7 @@ const MARQUEE_ITEMS = [
 ];
 
 const SOCIALS = [
-    { icon: Mail, href: "mailto:sarandevnet@gmail.com", label: "Email" },
+    { icon: Mail, href: "mailto:mail@saranmahadev.in", label: "Email" },
     { icon: Linkedin, href: "https://linkedin.com/in/saranmahadev", label: "LinkedIn" },
     { icon: Github, href: "https://github.com/saranmahadev", label: "GitHub" },
 ];

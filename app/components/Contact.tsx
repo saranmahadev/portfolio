@@ -7,7 +7,7 @@ import { useState } from "react";
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
 const socials = [
-    { icon: Mail, href: "mailto:sarandevnet@gmail.com", label: "Email", handle: "sarandevnet@gmail.com" },
+    { icon: Mail, href: "mailto:mail@saranmahadev.in", label: "Email", handle: "mail@saranmahadev.in" },
     { icon: Linkedin, href: "https://linkedin.com/in/saranmahadev", label: "LinkedIn", handle: "/in/saranmahadev" },
     { icon: Github, href: "https://github.com/saranmahadev", label: "GitHub", handle: "@saranmahadev" },
 ];

@@ -212,22 +212,15 @@ export default function Experience() {
                         ))}
                     </div>
 
-                    {/* Roadmap continues */}
+                    {/* Timeline continuation */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.7 }}
-                        className="relative mt-24 flex items-center justify-center gap-4"
+                        className="relative mt-24 flex items-center justify-center"
                     >
-                        <span className="relative flex h-5 w-5 shrink-0 items-center justify-center">
-                            <span className="absolute inset-0 animate-ping rounded-full border border-[#FD9000]/50"></span>
-                            <span className="h-2 w-2 rounded-full border border-[#FD9000]"></span>
-                        </span>
-                        <span className="font-mono text-xs tracking-[0.3em] text-white/50">
-                            {">"} NEXT MISSION LOADING
-                            <span className="animate-blink ml-0.5 inline-block">_</span>
-                        </span>
+                        <span aria-label="Timeline continues" className="h-2.5 w-2.5 animate-blink rounded-full bg-[#FD9000] shadow-[0_0_12px_#FD9000]"></span>
                     </motion.div>
                 </div>
             </div>
