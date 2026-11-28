@@ -96,7 +96,7 @@ export default function FloatingNav() {
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: -8, scale: 0.96 }}
                                         transition={{ duration: 0.18, ease: "easeOut" }}
-                                        className="absolute right-0 top-[calc(100%+0.8rem)] z-10 w-56 overflow-hidden border border-[var(--border-glass-strong)] bg-[var(--surface-glass-strong)] p-2 shadow-xl shadow-[var(--shadow)] backdrop-blur-xl [clip-path:polygon(10px_0,100%_0,100%_calc(100%-10px),calc(100%-10px)_100%,0_100%,0_10px)]"
+                                        className="absolute right-0 top-[calc(100%+0.8rem)] z-10 max-h-[calc(100dvh-8rem)] w-56 overflow-y-auto overscroll-contain border border-[var(--border-glass-strong)] bg-[var(--surface-glass-strong)] p-2 shadow-xl shadow-[var(--shadow)] backdrop-blur-xl [clip-path:polygon(10px_0,100%_0,100%_calc(100%-10px),calc(100%-10px)_100%,0_100%,0_10px)]"
                                     >
                                         {resources.map((resource) => (
                                             <div key={resource.name}>
@@ -138,7 +138,7 @@ export default function FloatingNav() {
                                         initial={{ opacity: 0, scale: 0.9, y: -20 }}
                                         animate={{ opacity: 1, scale: 1, y: 0 }}
                                         exit={{ opacity: 0, scale: 0.9, y: -20 }}
-                                        className="flex min-w-[220px] flex-col gap-1 border border-[var(--border-glass)] bg-[var(--background)] p-3 shadow-xl backdrop-blur-xl [clip-path:polygon(12px_0,100%_0,100%_calc(100%-12px),calc(100%-12px)_100%,0_100%,0_12px)]"
+                                        className="flex max-h-[calc(100dvh-8rem)] min-w-[220px] flex-col gap-1 overflow-y-auto overscroll-contain border border-[var(--border-glass)] bg-[var(--background)] p-3 shadow-xl backdrop-blur-xl [clip-path:polygon(12px_0,100%_0,100%_calc(100%-12px),calc(100%-12px)_100%,0_100%,0_12px)]"
                                     >
                                         {navItems.map((item) => (
                                             <a
