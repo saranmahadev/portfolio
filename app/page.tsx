@@ -11,7 +11,7 @@ import Contact from "./components/Contact";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen pb-20 overflow-hidden text-white">
+    <main className="relative min-h-screen pb-20 overflow-hidden text-[var(--foreground)]">
       <FloatingNav />
 
       <Hero />

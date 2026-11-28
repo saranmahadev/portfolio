@@ -61,7 +61,7 @@ export default function Experience() {
     return (
         <section id="work" className="min-h-screen py-24 px-4 overflow-hidden relative" ref={containerRef}>
             {/* Background elements */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[#FD9000]/5 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[var(--primary)]/5 rounded-full blur-[120px] pointer-events-none"></div>
 
             <div className="container mx-auto max-w-5xl relative z-10">
                 <div className="text-center mb-24">
@@ -70,7 +70,7 @@ export default function Experience() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="mb-3 font-mono text-sm tracking-[0.3em] text-[#FD9000]"
+                        className="mb-3 font-mono text-sm tracking-[0.3em] text-[var(--primary)]"
                     >
                         {"//"} CAREER
                     </motion.h6>
@@ -82,7 +82,7 @@ export default function Experience() {
                         className="text-4xl font-black tracking-tight md:text-6xl"
                     >
                         WORK{" "}
-                        <span className="bg-gradient-to-r from-[#FD9000] to-[#FF5E00] bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-[var(--primary)] to-[var(--primary-active)] bg-clip-text text-transparent">
                             EXPERIENCE
                         </span>
                     </motion.h2>
@@ -91,7 +91,7 @@ export default function Experience() {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.4, duration: 0.8 }}
-                        className="mt-4 font-mono text-[11px] tracking-[0.25em] text-white/50 md:text-xs"
+                        className="mt-4 font-mono text-[11px] tracking-[0.25em] text-[var(--text-muted)] md:text-xs"
                     >
                         R&amp;D · GENERATIVE AI · COMPUTER VISION · 2022 — PRESENT
                     </motion.div>
@@ -99,19 +99,19 @@ export default function Experience() {
 
                 <div className="relative">
                     {/* Central Line */}
-                    <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] bg-white/10 -translate-x-1/2 hidden md:block">
+                    <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] bg-[var(--brand-milk)]/10 -translate-x-1/2 hidden md:block">
                         {/* Idle data pulse running down the unfilled track */}
                         <motion.span
-                            className="absolute left-0 w-full h-16 bg-gradient-to-b from-transparent via-[#FD9000]/40 to-transparent"
+                            className="absolute left-0 w-full h-16 bg-gradient-to-b from-transparent via-[var(--primary)]/40 to-transparent"
                             animate={{ top: ["-10%", "105%"] }}
                             transition={{ duration: 3.2, repeat: Infinity, ease: "linear" }}
                         />
                         <motion.div
-                            className="absolute top-0 left-0 w-full bg-[#FD9000] shadow-[0_0_20px_#FD9000]"
+                            className="absolute top-0 left-0 w-full bg-[var(--primary)] shadow-[0_0_20px_var(--primary)]"
                             style={{ height: useTransform(scrollYProgress, [0, 1], ["0%", "100%"]) }}
                         >
                             {/* Comet head riding the progress tip */}
-                            <span className="absolute bottom-0 left-1/2 block h-3 w-3 -translate-x-1/2 translate-y-1/2 rounded-full bg-[#FD9000] shadow-[0_0_20px_6px_rgba(253,144,0,0.55)]"></span>
+                            <span className="absolute bottom-0 left-1/2 block h-3 w-3 -translate-x-1/2 translate-y-1/2 rounded-full bg-[var(--primary)] shadow-[0_0_20px_6px_var(--accent-medium)]"></span>
                         </motion.div>
                     </div>
 
@@ -126,49 +126,49 @@ export default function Experience() {
                                 className={`relative flex flex-col md:flex-row gap-8 md:gap-0 ${index % 2 === 0 ? "md:flex-row-reverse" : ""}`}
                             >
                                 {/* Timeline Node (Desktop) */}
-                                <div className="absolute left-1/2 top-0 -translate-x-1/2 hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-black border-4 border-[#1a1a1a] z-20 group-hover:border-[#FD9000] transition-colors">
+                                <div className="absolute left-1/2 top-0 -translate-x-1/2 hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-[var(--background)] border-4 border-[var(--surface)] z-20 group-hover:border-[var(--primary)] transition-colors">
                                     {/* Ignition ping when the node scrolls into view */}
                                     <motion.span
                                         initial={{ scale: 0.5, opacity: 0.9 }}
                                         whileInView={{ scale: 2.4, opacity: 0 }}
                                         viewport={{ once: true, margin: "-100px" }}
                                         transition={{ duration: 1, ease: "easeOut", delay: 0.35 }}
-                                        className="absolute inset-0 rounded-full border-2 border-[#FD9000]"
+                                        className="absolute inset-0 rounded-full border-2 border-[var(--primary)]"
                                     />
-                                    <div className="w-4 h-4 rounded-full bg-[#FD9000] shadow-[0_0_12px_#FD9000]"></div>
+                                    <div className="w-4 h-4 rounded-full bg-[var(--primary)] shadow-[0_0_12px_var(--primary)]"></div>
                                 </div>
 
                                 {/* Content Side */}
                                 <div className="w-full md:w-[45%]">
                                     <div className="relative group perspective-1000">
-                                        <div className="absolute inset-0 bg-gradient-to-r from-[#FD9000]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-r from-[var(--primary)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
 
-                                        <div className="relative bg-[#0a0a0a]/90 backdrop-blur-xl border border-white/10 p-8 hover:border-[#FD9000]/50 transition-all duration-500 hover:-translate-y-2 [clip-path:polygon(20px_0,100%_0,100%_calc(100%-20px),calc(100%-20px)_100%,0_100%,0_20px)]">
+                                        <div className="relative bg-[var(--background)]/90 backdrop-blur-xl border border-[var(--border-glass)] p-8 hover:border-[var(--primary)]/50 transition-all duration-500 hover:-translate-y-2 [clip-path:polygon(20px_0,100%_0,100%_calc(100%-20px),calc(100%-20px)_100%,0_100%,0_20px)]">
                                             {/* Header */}
                                             <div className="flex items-start justify-between mb-6">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-16 h-16 bg-white p-2 flex items-center justify-center shadow-lg [clip-path:polygon(10px_0,100%_0,100%_calc(100%-10px),calc(100%-10px)_100%,0_100%,0_10px)]">
+                                                    <div className="w-16 h-16 bg-[var(--brand-milk)] p-2 flex items-center justify-center shadow-lg [clip-path:polygon(10px_0,100%_0,100%_calc(100%-10px),calc(100%-10px)_100%,0_100%,0_10px)]">
                                                         <Image src={exp.logo} alt={exp.company} width={50} height={50} className="object-contain" />
                                                     </div>
                                                     <div>
-                                                        <h3 className="text-2xl font-bold text-white leading-tight">{exp.company}</h3>
-                                                        {exp.location && <p className="text-sm font-medium text-gray-400">{exp.location}</p>}
+                                                        <h3 className="text-2xl font-bold text-[var(--foreground)] leading-tight">{exp.company}</h3>
+                                                        {exp.location && <p className="text-sm font-medium text-[var(--text-muted)]">{exp.location}</p>}
                                                     </div>
                                                 </div>
                                                 {exp.id === "infosys" && (
-                                                    <div className="px-3 py-1 bg-[#FD9000]/10 border border-[#FD9000] text-[#FD9000] font-mono text-xs font-bold uppercase tracking-[0.2em] animate-pulse [clip-path:polygon(8px_0,100%_0,100%_calc(100%-8px),calc(100%-8px)_100%,0_100%,0_8px)]">
+                                                    <div className="px-3 py-1 bg-[var(--primary)]/10 border border-[var(--primary)] text-[var(--primary)] font-mono text-xs font-bold uppercase tracking-[0.2em] animate-pulse [clip-path:polygon(8px_0,100%_0,100%_calc(100%-8px),calc(100%-8px)_100%,0_100%,0_8px)]">
                                                         Current
                                                     </div>
                                                 )}
                                             </div>
 
-                                            <h4 className="text-xl font-bold text-[#FD9000] mb-2">{exp.title}</h4>
-                                            <p className="text-sm font-mono text-gray-500 mb-6 flex items-center gap-2">
-                                                <span className="w-1.5 h-1.5 rounded-full bg-gray-500"></span>
+                                            <h4 className="text-xl font-bold text-[var(--primary)] mb-2">{exp.title}</h4>
+                                            <p className="text-sm font-mono text-[var(--text-disabled)] mb-6 flex items-center gap-2">
+                                                <span className="w-1.5 h-1.5 rounded-full bg-[var(--text-disabled)]"></span>
                                                 {exp.duration}
                                             </p>
 
-                                            <p className="mb-6 border-l border-[#FD9000]/40 pl-4 text-sm leading-relaxed text-white/60">
+                                            <p className="mb-6 border-l border-[var(--primary)]/40 pl-4 text-sm leading-relaxed text-[var(--text-secondary)]">
                                                 {exp.description}
                                             </p>
 
@@ -180,15 +180,15 @@ export default function Experience() {
                                                         whileInView={{ opacity: 1, x: 0 }}
                                                         viewport={{ once: true }}
                                                         transition={{ duration: 0.45, delay: 0.3 + i * 0.12, ease: "easeOut" }}
-                                                        className="text-gray-300 text-sm leading-relaxed flex items-start gap-3"
+                                                        className="text-[var(--text-secondary)] text-sm leading-relaxed flex items-start gap-3"
                                                     >
-                                                        <span className="mt-0.5 shrink-0 text-[#FD9000]">▸</span>
+                                                        <span className="mt-0.5 shrink-0 text-[var(--primary)]">▸</span>
                                                         {item}
                                                     </motion.li>
                                                 ))}
                                             </ul>
 
-                                            <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5">
+                                            <div className="flex flex-wrap gap-2 pt-4 border-t border-[var(--border-subtle)]">
                                                 {exp.skills.map((skill, i) => (
                                                     <motion.span
                                                         key={i}
@@ -196,7 +196,7 @@ export default function Experience() {
                                                         whileInView={{ opacity: 1, y: 0, scale: 1 }}
                                                         viewport={{ once: true }}
                                                         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.5 + i * 0.07 }}
-                                                        className="px-3 py-1.5 font-mono text-[11px] tracking-wider text-gray-400 bg-white/5 border border-white/10 hover:bg-[#FD9000]/10 hover:text-[#FD9000] hover:border-[#FD9000]/40 transition-colors [clip-path:polygon(7px_0,100%_0,100%_calc(100%-7px),calc(100%-7px)_100%,0_100%,0_7px)]"
+                                                        className="px-3 py-1.5 font-mono text-[11px] tracking-wider text-[var(--text-muted)] bg-[var(--surface-strong)] border border-[var(--border-glass)] hover:bg-[var(--primary)]/10 hover:text-[var(--primary)] hover:border-[var(--primary)]/40 transition-colors [clip-path:polygon(7px_0,100%_0,100%_calc(100%-7px),calc(100%-7px)_100%,0_100%,0_7px)]"
                                                     >
                                                         {skill}
                                                     </motion.span>
@@ -220,7 +220,7 @@ export default function Experience() {
                         transition={{ duration: 0.7 }}
                         className="relative mt-24 flex items-center justify-center"
                     >
-                        <span aria-label="Timeline continues" className="h-2.5 w-2.5 animate-blink rounded-full bg-[#FD9000] shadow-[0_0_12px_#FD9000]"></span>
+                        <span aria-label="Timeline continues" className="h-2.5 w-2.5 animate-blink rounded-full bg-[var(--primary)] shadow-[0_0_12px_var(--primary)]"></span>
                     </motion.div>
                 </div>
             </div>

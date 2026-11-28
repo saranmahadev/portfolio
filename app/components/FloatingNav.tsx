@@ -52,15 +52,15 @@ export default function FloatingNav() {
                         className="pointer-events-auto"
                     >
                         {/* Desktop Nav */}
-                        <nav aria-label="Primary navigation" className="hidden md:flex items-center gap-2 border border-white/15 bg-black/55 px-3 py-3 backdrop-blur-xl shadow-lg shadow-brand-primary/10 [clip-path:polygon(12px_0,100%_0,100%_calc(100%-12px),calc(100%-12px)_100%,0_100%,0_12px)]">
+                        <nav aria-label="Primary navigation" className="hidden md:flex items-center gap-2 border border-[var(--border-glass)] bg-[var(--surface-glass-strong)] px-3 py-3 backdrop-blur-xl shadow-lg shadow-[var(--accent-glow)] [clip-path:polygon(12px_0,100%_0,100%_calc(100%-12px),calc(100%-12px)_100%,0_100%,0_12px)]">
                             {navItems.map((item) => (
                                 <a
                                     key={item.name}
                                     href={item.link}
-                                    className="relative px-4 py-2 text-base font-medium text-white/70 hover:text-white transition-colors duration-200 rounded-full group"
+                                    className="relative px-4 py-2 text-base font-medium text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-colors duration-200 rounded-full group"
                                 >
-                                    <span className="relative z-10 group-hover:text-black transition-colors duration-200">{item.name}</span>
-                                    <span className="absolute inset-0 bg-[#FD9000] rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 z-0"></span>
+                                    <span className="relative z-10 group-hover:text-[var(--primary-foreground)] transition-colors duration-200">{item.name}</span>
+                                    <span className="absolute inset-0 bg-[var(--primary)] rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 z-0"></span>
                                 </a>
                             ))}
                         </nav>
@@ -72,7 +72,7 @@ export default function FloatingNav() {
                                 aria-label={isMobileMenuOpen ? "Close navigation" : "Open navigation"}
                                 aria-expanded={isMobileMenuOpen}
                                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                                className="border border-white/20 bg-black/70 p-3 text-white shadow-lg backdrop-blur-xl transition-all hover:border-[#FD9000]/50 hover:text-[#FD9000] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FD9000] [clip-path:polygon(8px_0,100%_0,100%_calc(100%-8px),calc(100%-8px)_100%,0_100%,0_8px)]"
+                                className="border border-[var(--border-glass-strong)] bg-[var(--background)] p-3 text-[var(--foreground)] shadow-lg backdrop-blur-xl transition-all hover:border-[var(--primary)]/50 hover:text-[var(--primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] [clip-path:polygon(8px_0,100%_0,100%_calc(100%-8px),calc(100%-8px)_100%,0_100%,0_8px)]"
                             >
                                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                             </button>
@@ -84,14 +84,14 @@ export default function FloatingNav() {
                                         initial={{ opacity: 0, scale: 0.9, y: -20 }}
                                         animate={{ opacity: 1, scale: 1, y: 0 }}
                                         exit={{ opacity: 0, scale: 0.9, y: -20 }}
-                                        className="flex min-w-[220px] flex-col gap-1 border border-white/15 bg-black/90 p-3 shadow-xl backdrop-blur-xl [clip-path:polygon(12px_0,100%_0,100%_calc(100%-12px),calc(100%-12px)_100%,0_100%,0_12px)]"
+                                        className="flex min-w-[220px] flex-col gap-1 border border-[var(--border-glass)] bg-[var(--background)] p-3 shadow-xl backdrop-blur-xl [clip-path:polygon(12px_0,100%_0,100%_calc(100%-12px),calc(100%-12px)_100%,0_100%,0_12px)]"
                                     >
                                         {navItems.map((item) => (
                                             <a
                                                 key={item.name}
                                                 href={item.link}
                                                 onClick={() => setIsMobileMenuOpen(false)}
-                                                className="px-4 py-3 text-lg font-medium text-white/80 hover:text-[#FD9000] hover:bg-white/5 rounded-lg transition-all"
+                                                className="px-4 py-3 text-lg font-medium text-[var(--foreground)] hover:text-[var(--primary)] hover:bg-[var(--surface-strong)] rounded-lg transition-all"
                                             >
                                                 {item.name}
                                             </a>

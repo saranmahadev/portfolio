@@ -24,9 +24,9 @@ const udemyCerts: Certificate[] = [7, 16, 17, 21].map((id, index) => ({ src: `/a
 
 function TierLabel({ index }: { index: string }) {
     return (
-        <div className="mb-7 flex items-center gap-4 font-mono text-[10px] tracking-[0.22em] text-white/40 md:text-xs">
-            <span className="text-[#FD9000]">{"//"} TIER {index}</span>
-            <span className="h-px flex-1 bg-gradient-to-r from-[#FD9000]/40 to-transparent" />
+        <div className="mb-7 flex items-center gap-4 font-mono text-[10px] tracking-[0.22em] text-[var(--foreground-faint)] md:text-xs">
+            <span className="text-[var(--primary)]">{"//"} TIER {index}</span>
+            <span className="h-px flex-1 bg-gradient-to-r from-[var(--primary)]/40 to-transparent" />
         </div>
     );
 }
@@ -42,15 +42,15 @@ function CertificateCard({ cert, index, compact = false, onSelect }: { cert: Cer
             viewport={{ once: true, amount: 0.15 }}
             transition={{ type: "spring", damping: 22, stiffness: 180, delay: reduceMotion ? 0 : Math.min(index * 0.055, 0.35) }}
             onClick={onSelect}
-            className={`certificate-card group relative w-full overflow-hidden border border-white/10 bg-[#090909] text-left [clip-path:polygon(14px_0,100%_0,100%_calc(100%-14px),calc(100%-14px)_100%,0_100%,0_14px)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FD9000] ${compact ? "aspect-[4/3]" : "aspect-[16/11]"}`}
+            className={`certificate-card group relative w-full overflow-hidden border border-[var(--border-glass)] bg-[var(--background)] text-left [clip-path:polygon(14px_0,100%_0,100%_calc(100%-14px),calc(100%-14px)_100%,0_100%,0_14px)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] ${compact ? "aspect-[4/3]" : "aspect-[16/11]"}`}
         >
-            <div className="absolute inset-2 overflow-hidden bg-black/60 md:inset-3">
+            <div className="absolute inset-2 overflow-hidden bg-[var(--background)] md:inset-3">
                 <Image src={cert.src} alt={cert.label} fill sizes={compact ? "(max-width: 768px) 50vw, 240px" : "(max-width: 768px) 100vw, 420px"} className="object-contain p-1 transition duration-500 group-hover:scale-[1.035]" />
             </div>
             <div className="certificate-shine" aria-hidden="true" />
             <span className="corner-bracket left-2 top-2 border-l border-t" aria-hidden="true" />
             <span className="corner-bracket bottom-2 right-2 border-b border-r" aria-hidden="true" />
-            <span className="absolute bottom-3 right-3 z-10 grid h-8 w-8 place-items-center border border-white/15 bg-black/70 text-white/50 opacity-0 transition group-hover:border-[#FD9000]/50 group-hover:text-[#FD9000] group-hover:opacity-100"><ExternalLink size={14} /></span>
+            <span className="absolute bottom-3 right-3 z-10 grid h-8 w-8 place-items-center border border-[var(--border-glass)] bg-[var(--background)] text-[var(--text-muted)] opacity-0 transition group-hover:border-[var(--primary)]/50 group-hover:text-[var(--primary)] group-hover:opacity-100"><ExternalLink size={14} /></span>
         </motion.button>
     );
 }
@@ -71,7 +71,7 @@ export default function Certificates() {
     }, [selectedCert]);
 
     return (
-        <section id="certificates" className="section-shell min-h-screen overflow-hidden bg-[#050505] py-24">
+        <section id="certificates" className="section-shell min-h-screen overflow-hidden bg-[var(--background)] py-24">
             <div className="section-grid" aria-hidden="true" />
             <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8">
                 <div className="section-heading mb-16 text-center md:mb-20">
@@ -105,10 +105,10 @@ export default function Certificates() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[120] flex items-center justify-center bg-black/90 p-4 backdrop-blur-xl md:p-10"
+                        className="fixed inset-0 z-[120] flex items-center justify-center bg-[var(--background)] p-4 backdrop-blur-xl md:p-10"
                         onClick={() => setSelectedCert(null)}
                     >
-                        <button type="button" aria-label="Close certificate" autoFocus onClick={() => setSelectedCert(null)} className="absolute right-4 top-4 z-20 grid h-12 w-12 place-items-center border border-white/15 bg-black/60 text-white/70 transition hover:border-[#FD9000]/60 hover:text-[#FD9000] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FD9000] md:right-8 md:top-8"><X /></button>
+                        <button type="button" aria-label="Close certificate" autoFocus onClick={() => setSelectedCert(null)} className="absolute right-4 top-4 z-20 grid h-12 w-12 place-items-center border border-[var(--border-glass)] bg-[var(--background)] text-[var(--text-secondary)] transition hover:border-[var(--primary)]/60 hover:text-[var(--primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] md:right-8 md:top-8"><X /></button>
                         <motion.div
                             layoutId={reduceMotion ? undefined : `certificate-${selectedCert.src}`}
                             initial={reduceMotion ? false : { scale: 0.88, y: 35 }}
@@ -117,9 +117,9 @@ export default function Certificates() {
                             className="relative h-[78vh] w-full max-w-6xl"
                             onClick={(event) => event.stopPropagation()}
                         >
-                            <Image src={selectedCert.src} alt={selectedCert.label} fill sizes="95vw" className="object-contain drop-shadow-[0_30px_80px_rgba(0,0,0,0.8)]" priority />
+                            <Image src={selectedCert.src} alt={selectedCert.label} fill sizes="95vw" className="object-contain drop-shadow-[0_30px_80px_var(--shadow)]" priority />
                         </motion.div>
-                        <p className="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.2em] text-white/40">ESC TO CLOSE</p>
+                        <p className="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.2em] text-[var(--foreground-faint)]">ESC TO CLOSE</p>
                     </motion.div>
                 )}
             </AnimatePresence>

@@ -28,7 +28,7 @@ function CountUp({ value, suffix }: { value: number; suffix: string }) {
     return (
         <span ref={ref}>
             {display}
-            <span className="text-[#FD9000]">{suffix}</span>
+            <span className="text-[var(--primary)]">{suffix}</span>
         </span>
     );
 }
@@ -40,7 +40,7 @@ export default function About() {
             <div
                 className="pointer-events-none absolute -left-1/4 top-1/4 h-[50vw] w-[50vw] rounded-full opacity-60"
                 style={{
-                    background: "radial-gradient(circle, rgba(253,144,0,0.07) 0%, transparent 60%)",
+                    background: "radial-gradient(circle, var(--accent-faint) 0%, transparent 60%)",
                     filter: "blur(90px)",
                 }}
             />
@@ -57,12 +57,12 @@ export default function About() {
                     >
                         <div className="group relative mx-auto w-full max-w-sm">
                             {/* Corner brackets */}
-                            <span className="absolute -left-2 -top-2 z-20 h-6 w-6 border-l-2 border-t-2 border-[#FD9000]"></span>
-                            <span className="absolute -right-2 -top-2 z-20 h-6 w-6 border-r-2 border-t-2 border-[#FD9000]"></span>
-                            <span className="absolute -bottom-2 -left-2 z-20 h-6 w-6 border-b-2 border-l-2 border-[#FD9000]"></span>
-                            <span className="absolute -bottom-2 -right-2 z-20 h-6 w-6 border-b-2 border-r-2 border-[#FD9000]"></span>
+                            <span className="absolute -left-2 -top-2 z-20 h-6 w-6 border-l-2 border-t-2 border-[var(--primary)]"></span>
+                            <span className="absolute -right-2 -top-2 z-20 h-6 w-6 border-r-2 border-t-2 border-[var(--primary)]"></span>
+                            <span className="absolute -bottom-2 -left-2 z-20 h-6 w-6 border-b-2 border-l-2 border-[var(--primary)]"></span>
+                            <span className="absolute -bottom-2 -right-2 z-20 h-6 w-6 border-b-2 border-r-2 border-[var(--primary)]"></span>
 
-                            <div className="relative overflow-hidden rounded-2xl border border-white/10">
+                            <div className="relative overflow-hidden rounded-2xl border border-[var(--border-glass)]">
                                 <Image
                                     src="/assets/images/person.webp"
                                     alt="Saran Mahadev"
@@ -72,22 +72,22 @@ export default function About() {
                                 />
                                 {/* Scanline sweep */}
                                 <motion.div
-                                    className="absolute left-0 right-0 h-20 bg-gradient-to-b from-transparent via-[#FD9000]/15 to-transparent"
+                                    className="absolute left-0 right-0 h-20 bg-gradient-to-b from-transparent via-[var(--primary)]/15 to-transparent"
                                     animate={{ top: ["-20%", "115%"] }}
                                     transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
                                 />
                                 {/* Warm glow on hover */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#FD9000]/20 to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-[var(--primary)]/20 to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100"></div>
                             </div>
 
                             {/* Status readout */}
-                            <div className="mt-5 flex items-center justify-center gap-5 font-mono text-[11px] tracking-[0.2em] text-white/50">
+                            <div className="mt-5 flex items-center justify-center gap-5 font-mono text-[11px] tracking-[0.2em] text-[var(--text-muted)]">
                                 <span className="flex items-center gap-2">
-                                    <span className="h-1.5 w-1.5 rounded-full bg-[#FD9000]"></span>
+                                    <span className="h-1.5 w-1.5 rounded-full bg-[var(--primary)]"></span>
                                     BANGALORE, IN
                                 </span>
                                 <span className="flex items-center gap-2">
-                                    <span className="h-1.5 w-1.5 rounded-full bg-[#FD9000]"></span>
+                                    <span className="h-1.5 w-1.5 rounded-full bg-[var(--primary)]"></span>
                                     R&D @ ZENTRON LABS
                                 </span>
                             </div>
@@ -101,7 +101,7 @@ export default function About() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
-                            className="mb-3 font-mono text-sm tracking-[0.3em] text-[#FD9000]"
+                            className="mb-3 font-mono text-sm tracking-[0.3em] text-[var(--primary)]"
                         >
                             {"//"} ABOUT
                         </motion.h6>
@@ -115,7 +115,7 @@ export default function About() {
                                 className="mb-8 text-3xl font-black tracking-tight md:text-5xl"
                             >
                                 Building intelligent systems{" "}
-                                <span className="bg-gradient-to-r from-[#FD9000] to-[#FF5E00] bg-clip-text text-transparent">
+                                <span className="bg-gradient-to-r from-[var(--primary)] to-[var(--primary-active)] bg-clip-text text-transparent">
                                     that ship.
                                 </span>
                             </motion.h2>
@@ -127,17 +127,17 @@ export default function About() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: 0.2 }}
-                            className="flex divide-x divide-white/10"
+                            className="flex divide-x divide-[var(--border-glass)]"
                         >
                             {STATS.map((stat, i) => (
                                 <div
                                     key={stat.label}
                                     className={`${i === 0 ? "pr-6 md:pr-10" : "px-6 md:px-10"}`}
                                 >
-                                    <div className="text-3xl font-black text-white md:text-5xl">
+                                    <div className="text-3xl font-black text-[var(--foreground)] md:text-5xl">
                                         <CountUp value={stat.value} suffix={stat.suffix} />
                                     </div>
-                                    <div className="mt-2 font-mono text-[9px] tracking-[0.2em] text-white/50 md:text-[11px]">
+                                    <div className="mt-2 font-mono text-[9px] tracking-[0.2em] text-[var(--text-muted)] md:text-[11px]">
                                         {stat.label}
                                     </div>
                                 </div>

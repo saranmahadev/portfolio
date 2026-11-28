@@ -1,9 +1,9 @@
 .technicalArsenal {
-    --arsenal-background: #0a0a0a;
-    --arsenal-primary: #ffffff;
-    --arsenal-secondary: rgba(255, 255, 255, 0.5);
-    --arsenal-accent: #FD9000;
-    --arsenal-divider: rgba(255, 255, 255, 0.1);
+    --arsenal-background: var(--background);
+    --arsenal-primary: var(--foreground);
+    --arsenal-secondary: var(--text-muted);
+    --arsenal-accent: var(--primary);
+    --arsenal-divider: var(--border-glass);
     background: var(--arsenal-background);
     color: var(--arsenal-primary);
     padding: clamp(5.5rem, 11vw, 10.5rem) clamp(1.5rem, 4vw, 3rem) clamp(4.5rem, 9vw, 8rem);
@@ -52,7 +52,7 @@
 
 .heroTitle span {
     color: transparent;
-    background: linear-gradient(90deg, #FD9000, #FF5E00);
+    background: linear-gradient(90deg, var(--primary), var(--primary-active));
     -webkit-background-clip: text;
     background-clip: text;
 }
@@ -120,13 +120,13 @@
     min-height: 15.5rem;
     flex-direction: column;
     border: 1px solid var(--arsenal-divider);
-    background: rgba(10, 10, 10, 0.82);
+    background: var(--surface-glass);
     padding: clamp(1rem, 1.75vw, 1.6rem);
     transition: border-color 220ms ease, background-color 220ms ease;
     clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
 }
 
-.arsenalSection:hover { border-color: rgba(253, 144, 0, 0.55); background: rgba(253, 144, 0, 0.035); }
+.arsenalSection:hover { border-color: var(--accent-medium); background: var(--accent-subtle); }
 
 .sectionMeta { justify-content: flex-start; gap: 0.25rem; }
 .sectionMeta span { color: var(--arsenal-accent); }

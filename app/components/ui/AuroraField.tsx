@@ -36,7 +36,7 @@ export default function AuroraField() {
             <motion.div
                 className="absolute -left-1/4 -top-1/3 h-[75vw] w-[75vw] rounded-full"
                 style={{
-                    background: "radial-gradient(circle, rgba(253,144,0,0.13) 0%, transparent 60%)",
+                    background: "radial-gradient(circle, var(--accent-subtle) 0%, transparent 60%)",
                     filter: "blur(90px)",
                 }}
                 animate={{ x: [0, 90, -50, 0], y: [0, 50, 90, 0], scale: [1, 1.15, 0.95, 1] }}
@@ -45,7 +45,7 @@ export default function AuroraField() {
             <motion.div
                 className="absolute -right-1/4 top-1/4 h-[60vw] w-[60vw] rounded-full"
                 style={{
-                    background: "radial-gradient(circle, rgba(255,94,0,0.09) 0%, transparent 60%)",
+                    background: "radial-gradient(circle, var(--accent-faint) 0%, transparent 60%)",
                     filter: "blur(100px)",
                 }}
                 animate={{ x: [0, -80, 40, 0], y: [0, -60, 30, 0], scale: [1, 0.9, 1.1, 1] }}
@@ -54,7 +54,7 @@ export default function AuroraField() {
             <motion.div
                 className="absolute -bottom-1/3 left-1/3 h-[50vw] w-[50vw] rounded-full"
                 style={{
-                    background: "radial-gradient(circle, rgba(80,40,255,0.05) 0%, transparent 60%)",
+                    background: "radial-gradient(circle, var(--surface-contrast) 0%, transparent 60%)",
                     filter: "blur(110px)",
                 }}
                 animate={{ x: [0, 60, -60, 0], scale: [1, 1.2, 0.9, 1] }}
@@ -66,7 +66,7 @@ export default function AuroraField() {
                 className="absolute inset-0 opacity-[0.05]"
                 style={{
                     backgroundImage:
-                        "linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)",
+                        "linear-gradient(to right, var(--milk-grid) 1px, transparent 1px), linear-gradient(to bottom, var(--milk-grid) 1px, transparent 1px)",
                     backgroundSize: GRID_SIZE,
                     maskImage: "linear-gradient(to bottom, transparent, black 30%, black 75%, transparent)",
                     WebkitMaskImage: "linear-gradient(to bottom, transparent, black 30%, black 75%, transparent)",
@@ -78,7 +78,7 @@ export default function AuroraField() {
                 className="absolute inset-0"
                 style={{
                     backgroundImage:
-                        "linear-gradient(to right, rgba(253,144,0,0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(253,144,0,0.35) 1px, transparent 1px)",
+                        "linear-gradient(to right, var(--accent-glow) 1px, transparent 1px), linear-gradient(to bottom, var(--accent-glow) 1px, transparent 1px)",
                     backgroundSize: GRID_SIZE,
                     maskImage: "radial-gradient(340px circle at var(--mx, 50%) var(--my, 45%), black 0%, transparent 100%)",
                     WebkitMaskImage: "radial-gradient(340px circle at var(--mx, 50%) var(--my, 45%), black 0%, transparent 100%)",
@@ -89,13 +89,13 @@ export default function AuroraField() {
             {!reduceMotion && EMBERS.map((ember, i) => (
                 <motion.div
                     key={i}
-                    className="absolute hidden rounded-full bg-[#FD9000] md:block"
+                    className="absolute hidden rounded-full bg-[var(--primary)] md:block"
                     style={{
                         left: ember.left,
                         top: ember.top,
                         width: ember.size,
                         height: ember.size,
-                        boxShadow: "0 0 6px rgba(253,144,0,0.8)",
+                        boxShadow: "0 0 6px var(--accent)",
                     }}
                     initial={{ opacity: 0 }}
                     animate={{ y: -460, x: ember.drift, opacity: [0, 0.8, 0] }}
@@ -115,7 +115,7 @@ export default function AuroraField() {
             />
 
             {/* Vignette to focus the center */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.55)_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,var(--shadow)_100%)]" />
         </div>
     );
 }
