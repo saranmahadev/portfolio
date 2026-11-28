@@ -12,7 +12,7 @@ import Footer from "./components/Footer";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen pb-20 overflow-hidden text-[var(--foreground)]">
+    <main className="relative min-h-screen overflow-hidden text-[var(--foreground)]">
       <FloatingNav />
 
       <Hero />

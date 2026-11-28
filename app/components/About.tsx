@@ -88,7 +88,7 @@ export default function About() {
                                 </span>
                                 <span className="flex items-center gap-2">
                                     <span className="h-1.5 w-1.5 rounded-full bg-[var(--primary)]"></span>
-                                    R&D @ ZENTRON LABS
+                                    GEN AI @ INFOSYS
                                 </span>
                             </div>
                         </div>

@@ -190,22 +190,6 @@ export default function Hero() {
                 style={{ x: parallaxX, y: parallaxY }}
                 className="relative z-10 flex w-full max-w-5xl flex-col items-center text-center"
             >
-                {/* Status pill */}
-                <motion.div
-                    initial={{ opacity: 0, y: -16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.15 }}
-                    className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-[var(--border-glass)] bg-[var(--surface-elevated)] px-4 py-2 backdrop-blur-md"
-                >
-                    <span className="relative flex h-2 w-2">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--success)] opacity-60"></span>
-                        <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--success)]"></span>
-                    </span>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--text-secondary)] md:text-xs">
-                        Open to opportunities · Bangalore, IN
-                    </span>
-                </motion.div>
-
                 {/* Name */}
                 <motion.h1
                     variants={nameContainer}
